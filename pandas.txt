@@ -1,0 +1,5 @@
+Pandas 
+using ipython shell
+go to cmd line type ipython
+import pandas
+df1=pandas.DataFrame([["sairam",100,100,99,98,95],["ganesh",99,100,99,98,95]],colums=["name","maths_marks","science_marks","social_science_marks","tamil_marks","english_marks"],index=[1,2])
