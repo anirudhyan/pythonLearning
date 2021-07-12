@@ -2,5 +2,69 @@ Pandas
 using ipython shell
 go to cmd line type ipython
 import pandas
-df1=pandas.DataFrame([["sairam",100,100,99,98,95],["ganesh",99,100,99,98,95]],colums=["name","maths_marks","science_marks","social_science_marks","tamil_marks","english_marks"],index=[1,2])
-df2=pandas.DataFrame({"name":"sairam","rollno":1},{"name":"ganesh","rollno":2})
+df1=pandas.DataFrame([["sairam",100,100,99,98,95],["ganesh",99,100,99,98,95]],columns=["name","maths_marks","science_marks","social_science_marks","tamil_marks","english_marks"],index=[1,2])
+type(df1) // to see the data type 
+dir(df1)  // gives the methods available for df1 type
+df1.mean() // returns series which is a type
+df1.Price.mean() // returns the mean for the price column only
+df2=pandas.DataFrame([{"name":"sairam","rollno":1},{"name":"ganesh","rollno":2}])
+df3=pd.DataFrame({"days":[1,2,3,4],"working hours":[10,8,7,9],"exercise time":[1,2,0,3]})
+
+Reading a csv file:
+In a csv file the , is default delimiter 
+df1=pd.read_csv(r"C:\Users\anirudhya n\Downloads\supermarkets.csv") 
+If we have a text file with ; as delimiter then we can use 
+df5=pd.read_csv(r"C:\Users\anirudhya n\Downloads\supermarkets-semi-colons (1).txt",sep=";")
+To give header explicitly if a header is not present in the file
+df01=pd.read_csv(r"C:\Users\anirudhya n\Downloads\noheader.csv",header=None)
+df01.columns=["Id","Name","Maths Marks","Science Mark","English Mark"]
+df01.set_index("Id")  // to set the Id column as index values it dosnt modifies the dataframe
+df01.set_index("Id",inplace=True) //Id column is set as the index the dataframe is modified also
+df01.set_index("Address",inplace=True,drop=False)  // drop if set as false will not drop the column so the column will be the id and also as a column
+
+Based on labels manipulating a dataframe using loc and we use iloc for manipulating dataframe using index
+df1.loc[1:4,"Address":"Name"]  // displays index from 1 to 4 and column from Address to Name
+df1.iloc[1:4,1:4]  // in this the index and column starts from 0 and the ending (4) is not included
+
+For deleting a row or column in a dataframe using drop method
+df1.drop("City",1) //where 1 for column and 0 for rows
+df1.drop(df1.columns[0:3],1)
+df1.drop(1,0)  // we pass the row id 
+df1.drop(df.index[0:3],0)
+
+Modifying a DataFrame:
+To add a new column or modify if already exists
+len(df7.index)  //gives the number of rows
+df1.shape  // gives the number of rows and columns in a dataframe as a tuple
+df1["Continent"]=df1.shape[0]*["North America"]
+df1["Continent"]=df1["Country"]+", "+"North America"
+
+To add a new row or modify a row  in a dataframe we use transpose
+df1_t=df1.T // df1_t is the transpose of the df1 dataframe
+df1_t[7]=[7,"13 sl street washington USA","Washington","CALIFORNIA","USA","Sairam",15]
+df1=df1_t.T  // For obtain the orginal dataframe we again take the transpose
+
+df1["Continent"]=df7.shape
+Reading a json file:
+df2=pd.read_json(r"C:\Users\anirudhya n\Downloads\supermarkets.json")
+
+Reading a xl file:
+To install openpyxl for .xlsx file and install xlrd to open .xls files 
+df2=pd.read_excel(r"C:\Users\anirudhya n\Downloads\supermarkets.xlsx",sheet_name=0)
+
+Geocoding: Converting the address string to latitude and longitude points 
+Reverse geocoding: Converting the latitude, longitude to the address
+we use geopy module for getting the lattitude and longitude values
+import geopy.geocoders as gp
+#dir(geopy)
+nom=gp.ArcGIS()  //getting an object to a variable nom
+n=nom.geocode("5 TL Ragupathy Street, Chrompet, Chennai, Tamilnadu, 600044")
+print(n)
+#type(n)  // n is a location object
+n.latitude   // to get the value of latitude for single address
+n.longitude  // to get the value of longitude for single address
+df1["Coordinates"]=df1["Address"].apply(nom.geocode)  // We get the entire address with lattitude and longitude 
+df1["Latitude"]=df1["Coordinates"].apply(lambda x:x.latitude if x!=None else None) // apply lamda function to take location object and find the latitide
+df1["Longitude"]=df1["Coordinates"].apply(lambda x:x.longitude if x!=None else None) // apply lamda function to take location object and find the longitude
+
+
