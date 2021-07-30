@@ -1,0 +1,37 @@
+Python Image processing
+Python stores images as the array of numbers 
+Numpy is a python module for wrking with multidimensional arrays.
+cv2 or the opencv is a module used for image processing in python
+==========================================================================================================
+import cv2
+import numpy
+im_g=cv2.imread("smallgray.png",0)  
+It uses BGR so for reading grey we give 0 else we give 1
+im_g=cv2.imread("smallgray.png",1)
+It gives measure of B,G and R 
+cv2.imwrite("new_image.png",im_g)
+It creates a new_image.png image with im_g as the numpy array
+
+Indexing and slicing in a numpy array
+im_g[0:2] gives the first 2 rows
+img[0:2,2:5] gives first 2 rows and last 3 columns 
+Row and Column numbers are indexed by 0,1,2,3,4,5,etc.
+for i in im_g:
+	print(i)   // to print row wise
+for i in im_g.T:
+	print(i)   // to print column wise
+for i in im_g.flat:
+	print(i)
+
+hstack,vstack and hsplit,vsplit
+
+ims=np.hstack((im_g,im_g))  // to join the two numpy arrays horizontally and can take any number of numpy arrays inside the tuple which are of the same size
+ims=np.vstack((im_g,im_g))  // to join the numpy arrays vertically
+s1=np.hsplit(ims,5)  // to split the numpy array into 5 equal parts based on number of row elements and generates a list of splitted numpy arrays
+s1=np.vsplit(ims,3)  // to split numpy array into 3 equal parts along the colums.
+For accesing the list elements use index such as s1[0]
+
+import numpy as np
+arr=np.array([1,2,3,4,5])   //any list or tuple can be converted into numpy array using array()
+arr.ndim     // used to get the dimensions of the ndarray and arr is an object of the ndarray
+ 
